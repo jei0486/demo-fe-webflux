@@ -1,0 +1,10 @@
+server:
+  port: 9099
+
+springdoc:
+  api-docs:
+    path: /api-docs
+
+logging:
+  level:
+    org.springframework.web.reactive.function.client.ExchangeFunctions: DEBUG
