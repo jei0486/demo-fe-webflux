@@ -11,4 +11,4 @@
 - DB 연결 X
 
 ## 프로젝트 구성
-- **demo-fe** > **demo-api** > **DB** (mysql)
+- **demo-fe** > demo-api > DB (mysql)
