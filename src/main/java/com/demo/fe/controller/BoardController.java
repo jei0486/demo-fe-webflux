@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -23,8 +20,8 @@ public class BoardController {
 
     final BoardService boardService;
 
-    // 게시물 리스트
-    @RequestMapping("/list")
+    // 게시물 리스트 테스트
+    @GetMapping("/list")
     private Mono<String> getBoardList(Model model){
         Mono<List<Board>> boardList = boardService.getBoardList();
         model.addAttribute("board",boardList);
@@ -32,7 +29,7 @@ public class BoardController {
     }
 
     // 게시물 상세보기
-    @RequestMapping("/detail/{boardId}")
+    @GetMapping("/detail/{boardId}")
     private Mono<String> getBoardList(Model model,@PathVariable Long boardId){
         Mono<Board> detailBoard = boardService.getDetailBoard(boardId);
         model.addAttribute("board",detailBoard);
@@ -40,7 +37,7 @@ public class BoardController {
     }
 
     // 게시물 리스트
-    @RequestMapping("/board_list")
+    @GetMapping("/board_list")
     private Mono<String> getBoard(Model model){
         Mono<List<Board>> boardList = boardService.getBoardList();
         model.addAttribute("list",boardList);
@@ -48,11 +45,14 @@ public class BoardController {
     }
 
     // 게시물 작성페이지로 이동
-    @RequestMapping("/board_add")
+    @GetMapping("/page/insert")
     private Mono<String> add(Model model){
-        return Mono.just("board_add");
+        return Mono.just("board_insert");
     }
 
+    /*
+        게시물 insert 후 상세보기 페이지로 이동
+     */
     @PostMapping("/board_insert")
     private Mono<String> addComplete(Model model,Board board) {
         Mono<Board> detailBoard = boardService.insertBoard(board);
@@ -61,5 +61,11 @@ public class BoardController {
        return Mono.just("detail");
     }
 
+    // 수정 페이지로 이동
+    @GetMapping("/page/update/{boardId}")
+    private Mono<String> update (Model model,@PathVariable Long boardId){
+        model.addAttribute("board",boardService.getDetailBoard(boardId));
+        return Mono.just("board_update");
+    }
 
 }

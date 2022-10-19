@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>수정</title>
+    <style>
+        .board-form {
+            border: 1px solid black;
+        }
+        .board-form tr, th, td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+        .board_btn_div {
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+        .board_btn_div .board_reg_button {
+            border-width: 0;
+            background-color: transparent;
+            text-decoration: underline;
+            font-size: 14px;
+            line-height: 20px;
+            height: 20px;
+            color: #000;
+            cursor: pointer;
+        }
+        .board_btn_div .board_list_link {
+            color: black;
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script th:inline="javascript">
+
+        function updateBoard(boardId){
+            if (!confirm('수정 하시겠습니까?')) { return false; }
+
+            let reqData = {
+               "subject"  : document.getElementById("subject").value || "",
+               "content"  : document.getElementById("content").value || "",
+               "ins_id"  : document.getElementById("ins_id").value || "",
+               "ins_date"  : document.getElementById("ins_date").value,
+               "mod_id"  : document.getElementById("mod_id").value,
+               "hits"  : document.getElementById("hits").value | 0,
+               "seq"  : document.getElementById("seq").value  | 0
+            }
+
+            console.log(reqData);
+
+            $.ajax({
+                  type : "PUT",
+                  url  : "/board/" + boardId,
+                  data : reqData,
+                  success : function (e) {
+                    console.log(e);
+                      location.href="/detail/" + boardId
+                  },
+                  error : function (e) {
+                      alert(e.responseText);
+                  }
+             })
+
+        }
+    </script>
+</head>
+<body>
+<h1>Board UPDATE</h1>
+
+    <table class="board-form">
+        <tbody>
+        <tr>
+            <th>제목</th>
+            <td>
+                <input type="text" name="subject" id="subject" required placeholder="제목 입력" th:value="${board.subject}" />
+            </td>
+        </tr>
+        <tr>
+            <th>내용</th>
+            <td>
+                <textarea id="content"  maxlength="65545" name="content"  th:value="${board.content}" th:text="${board.content}" placeholder="내용 입력"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <th>작성자</th>
+            <td>
+                <input type="text" name="ins_id" id="ins_id" th:value="evelyn"/>
+            </td>
+        </tr>
+        <tr>
+            <th>작성일</th>
+            <td>
+                <input type="text" name="ins_date" id="ins_date" th:value="${board.ins_date}" />
+            </td>
+        </tr>
+        <tr>
+            <th>수정자</th>
+            <td>
+                <input type="text" name="mod_id" id="mod_id" th:value="evelyn"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <input type="hidden" name="hits" id="hits" th:value="${board.hits}"/>
+    <input type="hidden" name="seq" id="seq" th:value="${board.seq}"/>
+
+    <div class="board_btn_div">
+        <button class="board_reg_button" id="board_reg_button" type="button" th:onclick="'javascript:updateBoard(' + ${board.seq} + ')'" >수정</button>
+        <a class="board_list_link" href="/board_list">목록 이동</a>
+    </div>
+</body>
+</html>

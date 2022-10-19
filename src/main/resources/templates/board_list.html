@@ -35,7 +35,7 @@
 </head>
 <body>
 <h1>Board List</h1>
-<button type="button" th:onclick="|location.href='@{/board_add}'|" > 글 작성하기 </button>
+<button type="button" th:onclick="|location.href='@{/page/insert}'|" > 글 작성하기 </button>
 <div class="list">
   <div class="search-form">
    <!-- <p class="total-count">전체 <span th:text="${totalCount}"></span>개</p>-->
@@ -77,10 +77,7 @@
         <p th:text="${x.ins_date}">2021.01.01</p>
       </td>
       <td th:text="${x.hits}">0</td>
-     <!-- <td>
-        <p th:if="${x.del_yn}">Y</p>
-        <p th:if="${x.del_yn eq y}">N</p>
-      </td>-->
+
     </tr>
     </tbody>
   </table>

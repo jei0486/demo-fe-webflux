@@ -31,9 +31,8 @@
         }
     </style>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-          integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script th:inline="javascript">
 
         // 삭제
         function deleteBoard(boardId){
@@ -50,25 +49,13 @@
              })
         }
 
-        // 수정
-        function updateBoard(board){
-            console.log(board)
+       function updateBoard(boardId){
+          location.href="/page/update/" + boardId
+       }
 
-            if (!confirm('수정 하시겠습니까?')) {return false;}
-
-             $.ajax({
-                  type : "PUT",
-                  url  : "/board/" + board.seq,
-                  success : function (data) {
-                      // alert(data);
-                      location.href="/detail/" + board.seq
-                  },
-                  error   : function (e) {
-                      alert(e.responseText);
-                  }
-             })
-        }
     </script>
+
+
 </head>
 <body>
 <h1>Board Detail</h1>
@@ -91,7 +78,7 @@
     </tr>
     </tbody>
   </table>
-    <button  type="button" class="board_button" id="board_update_button" th:onclick="'javascript:updateBoard(' + ${board} + ')'" >수정</button>
+  <button type="button" class="board_button" id="board_update_button"  th:onclick="'javascript:updateBoard(' + ${board.seq} + ')'" >수정</button>
     <button type="button" class="board_button" id="board_delete_button"  th:onclick="'javascript:deleteBoard(' + ${board.seq} + ')'" > 삭제</button>
 </div>
 </body>

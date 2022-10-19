@@ -1,6 +1,5 @@
 //package com.demo.fe.config;
 //
-//
 //import io.swagger.annotations.ApiOperation;
 //import org.reactivestreams.Publisher;
 //import org.springframework.context.annotation.Bean;
@@ -15,7 +14,6 @@
 //import springfox.documentation.builders.RequestHandlerSelectors;
 //import springfox.documentation.spi.DocumentationType;
 //import springfox.documentation.spring.web.plugins.Docket;
-//
 //
 //@EnableWebFlux
 //@Configuration
@@ -44,7 +42,5 @@
 //
 //        WebFluxConfigurer.super.addResourceHandlers(registry);
 //    }
-//
-//
 //
 //}

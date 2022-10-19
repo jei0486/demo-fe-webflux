@@ -1,7 +1,9 @@
 package com.demo.fe.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -22,14 +24,17 @@ public class Board {
     @Size(max = 2000)
     private String content;
     private int hits;
-    private Character del_yn;
 
     @NotBlank
     @Size(min = 0, max = 100)
     private String ins_id;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime ins_date;
 
     @Size(max = 100)
     private String mod_id;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime mod_date;
 }
