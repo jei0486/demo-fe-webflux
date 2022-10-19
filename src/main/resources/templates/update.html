@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Board List</title>
+
+  <style>
+        .board-form {
+            border: 1px solid black;
+        }
+
+        .board-form tr, th, td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+        .board_btn_div {
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+
+        .board_btn_div .board_update_button {
+            border-width: 0;
+            background-color: transparent;
+            text-decoration: underline;
+            font-size: 14px;
+            line-height: 20px;
+            height: 20px;
+            color: #000;
+            cursor: pointer;
+        }
+
+        .board_btn_div .board_list_link {
+            color: black;
+        }
+    </style>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+          integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script>
+        $(document).ready(function () {
+            $('form[name=board_form]').on('submit', function () {
+                if (!confirm('배너를 수정하시겠습니까?')) {
+                    return false;
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<h1>배너 관리 - 배너 수정</h1>
+
+<form method="post"  name="board_form" action="/insert">
+  <table class="board-form">
+    <tbody>
+    <tr>
+      <th>배너명</th>
+      <td>
+        <input type="text" name="name" required placeholder="배너명 입력" th:value="${board.name}"/>
+      </td>
+    </tr>
+
+    <tr>
+      <th>대체텍스트</th>
+      <td>
+        <input type="text" name="alterText" required placeholder="대체 텍스트 입력" th:value="${board.alterText}"/>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        배너 파일
+      </th>
+      <td>
+        <input type="file" name="multipartFile"/>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        링크주소
+      </th>
+      <td>
+        <input type="text" name="linkUrl" required placeholder="링크 주소 입력" th:value="${board.linkUrl}"/>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        오픈 방법
+      </th>
+
+      <td>
+        <select name="openSelect" required>
+          <option value="0"> 오픈 방법 선택</option>
+          <option value="0">새창</option>
+          <option value="1">현재창</option>
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        정렬 순서
+      </th>
+
+      <td>
+        <input type="number" name="sortOrder" required placeholder="정렬 순서" th:value="${board.sortOrder}"/>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        공개 여부
+      </th>
+      <td>
+        <label for="visibility">공개</label>
+        <input type="checkbox" id="visibility" name="visibility" th:checked="${board.visibility}">
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <input type="hidden" th:value="${board.id}" name="id">
+
+  <div class="board_btn_div">
+    <button class="board_update_button" id="board_update_button" type="submit">등록</button>
+    <a class="board_list_link" href="/list">목록 이동</a>
+  </div>
+</form>
+</body>
+</html>

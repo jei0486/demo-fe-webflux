@@ -29,6 +29,15 @@ dependencies {
 
 	implementation 'org.springdoc:springdoc-openapi-webflux-ui:1.6.11'
 
+	// thymeleaf for webflux
+	implementation 'org.thymeleaf:thymeleaf-spring5'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+
+
+	// 모니터링
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	implementation 'io.micrometer:micrometer-registry-prometheus'
 
 //	implementation 'io.springfox:springfox-swagger2:3.0.0'
 //	implementation 'io.springfox:springfox-swagger-ui:3.0.0'

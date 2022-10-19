@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>BoardList</title>
+  <style>
+        .list table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .list table th, .list table td {
+            border:solid 1px #000;
+            text-align: center;
+        }
+        .search-form {
+            position: relative;
+            padding: 5px 0 10px 0;
+            text-align: right;
+        }
+        .search-form .total-count {
+            position: absolute;
+            left: 0; top: 0;
+            height: 20px;
+            float: left;
+        }
+        .pager {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .pager a.on {
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<h1>Board List</h1>
+<button type="button" th:onclick="|location.href='@{/board_add}'|" > 글 작성하기 </button>
+<div class="list">
+
+  <div class="search-form">
+   <!-- <p class="total-count">전체 <span th:text="${totalCount}"></span>개</p>-->
+
+   <!-- <form method="get">
+      <select name="searchType">
+        <option value="all">전체</option>
+        <option th:selected="${#strings.equals(param.searchType, 'userId')}" value="userId">아이디</option>
+        <option th:selected="${#strings.equals(param.searchType, 'userName')}" value="userName">이름</option>
+        <option th:selected="${#strings.equals(param.searchType, 'phone')}" value="phone">연락처</option>
+      </select>
+      <input th:value="${param.searchValue}" type="sear" name="searchValue" placeholder="검색어 입력"/>
+      <button type="submit">검색</button>
+    </form>-->
+  </div>
+
+  <table>
+    <thead>
+    <tr>
+      <th>NO</th>
+      <th>SUBJECT</th>
+      <th>CONTENT</th>
+      <th>INS_ID</th>
+      <th>INS_DATE</th>
+      <th>HITS</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="x : ${list}">
+      <td th:text="${x.seq}">1</td>
+      <td>
+        <a th:text="${x.subject}"
+           th:href="@{/detail/{boardId}(boardId=${x.seq})}">
+          evelyn</a>
+      </td>
+      <td th:text="${x.content}">evelyn</td>
+      <td th:text="${x.ins_id}">evelyn</td>
+      <td>
+        <p th:text="${x.ins_date}">2021.01.01</p>
+      </td>
+      <td th:text="${x.hits}">0</td>
+     <!-- <td>
+        <p th:if="${x.del_yn}">Y</p>
+        <p th:if="${x.del_yn eq y}">N</p>
+      </td>-->
+    </tr>
+    </tbody>
+  </table>
+
+<!--  <div class="pager" th:if="${#lists.size(list) > 0}" th:utext="${pager}">-->
+<!--  </div>-->
+
+</div>
+
+
+</body>
+</html>

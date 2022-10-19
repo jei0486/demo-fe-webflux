@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @Data
 public class Board {
 
-
     private Long seq;
 
     @NotBlank

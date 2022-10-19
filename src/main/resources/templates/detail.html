@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Simple Board</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+        .board-form {
+            border: 1px solid black;
+        }
+
+        .board-form tr, th, td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+        .board_btn_div {
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+
+        .board_btn_div .board_button {
+            border-width: 0;
+            background-color: transparent;
+            text-decoration: underline;
+            font-size: 14px;
+            line-height: 20px;
+            height: 20px;
+            color: #000;
+            cursor: pointer;
+        }
+
+        .board_btn_div .board_list_link {
+            color: black;
+        }
+    </style>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+          integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+
+        // 삭제
+        function deleteBoard(boardId){
+            if (!confirm('삭제 하시겠습니까?')) { return false; }
+             $.ajax({
+                  type : "DELETE",
+                  url  : "/board/" + boardId,
+                  success : function (data) {
+                      location.href="/board_list"
+                  },
+                  error   : function (e) {
+                      alert(e.responseText);
+                  }
+             })
+        }
+
+        // 수정
+        function updateBoard(board){
+            console.log(board)
+
+            if (!confirm('수정 하시겠습니까?')) {return false;}
+
+             $.ajax({
+                  type : "PUT",
+                  url  : "/board/" + board.seq,
+                  success : function (data) {
+                      // alert(data);
+                      location.href="/detail/"  + board.seq
+                  },
+                  error   : function (e) {
+                      alert(e.responseText);
+                  }
+             })
+        }
+    </script>
+</head>
+<body>
+<h1>Board Detail</h1>
+<div>
+  <table>
+    <thead>
+    <tr>
+      <th>Seq</th>
+      <th>Subject</th>
+      <th>Content</th>
+      <th>insert_id</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td th:text="${board.seq}"></td>
+      <td th:text="${board.subject}"></td>
+      <td th:text="${board.content}"></td>
+      <td th:text="${board.ins_id}"></td>
+    </tr>
+    </tbody>
+  </table>
+    <button  type="button" class="board_button" id="board_update_button" th:onclick="'javascript:updateBoard(' + ${board} + ')'" >수정</button>
+    <button type="button" class="board_button" id="board_delete_button"  th:onclick="'javascript:deleteBoard(' + ${board.seq} + ')'" > 삭제</button>
+</div>
+</body>
+</html>
