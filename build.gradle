@@ -34,7 +34,6 @@ dependencies {
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time'
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
-
 	// 모니터링
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation 'io.micrometer:micrometer-registry-prometheus'

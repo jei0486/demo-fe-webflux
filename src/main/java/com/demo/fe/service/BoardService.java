@@ -36,11 +36,17 @@ public class BoardService {
     // 게시물 리스트
     public Mono<List<Board>> getBoardList(){
         String uri = "http://localhost:8088/board";
+        /*
+        exchange 메서드는 retrieve 보다 세밀한 컨트롤이 가능한 대신 memory leak 을 주의 해야 한다.
+        https://github.com/reactor/reactor-netty/issues/1401
+         */
         Mono<List<Board>> result = WebClient.create()
                 .get()
                 .uri(uri)
                 .exchange()
                 .flatMapMany(res -> res.bodyToFlux(Board.class))
+
+
                 .collectList();
         return result;
     }
