@@ -41,7 +41,7 @@
                   type : "DELETE",
                   url  : "/board/" + boardId,
                   success : function (data) {
-                      location.href="/board_list"
+                      location.href="/boardList"
                   },
                   error   : function (e) {
                       alert(e.responseText);
@@ -54,7 +54,7 @@
        }
 
        function goList(){
-          location.href="/board_list"
+          location.href="/boardList"
        }
 
     </script>
@@ -78,7 +78,7 @@
       <td th:text="${board.seq}"></td>
       <td th:text="${board.subject}"></td>
       <td th:text="${board.content}"></td>
-      <td th:text="${board.ins_id}"></td>
+      <td th:text="${board.createdId}"></td>
     </tr>
     </tbody>
   </table>

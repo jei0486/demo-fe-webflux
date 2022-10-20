@@ -44,7 +44,7 @@
 <body>
 <h1>Board Write</h1>
 
-<form method="post"  name="board_form" action="/board_insert">
+<form method="post"  name="board_form" action="/insertBoard">
     <table class="board-form">
         <tbody>
         <tr>
@@ -62,15 +62,15 @@
         <tr>
             <th>작성자</th>
             <td>
-                <input type="text" name="ins_id" value="evelyn"/>
+                <input type="text" name="createdId" value="evelyn"/>
             </td>
         </tr>
         </tbody>
     </table>
-
+2
     <div class="board_btn_div">
         <button class="board_reg_button" id="board_reg_button" type="submit"> 글쓰기</button>
-        <a class="board_list_link" href="/board_list">목록 이동</a>
+        <a class="board_list_link" href="/boardList">목록 이동</a>
     </div>
 </form>
 </body>

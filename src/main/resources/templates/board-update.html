@@ -39,9 +39,9 @@
             let reqData = {
                "subject"  : document.getElementById("subject").value || "",
                "content"  : document.getElementById("content").value || "",
-               "ins_id"  : document.getElementById("ins_id").value || "",
-               "ins_date"  : document.getElementById("ins_date").value,
-               "mod_id"  : document.getElementById("mod_id").value,
+               "createdId"  : document.getElementById("createdId").value || "",
+               "createdDate"  : document.getElementById("createdDate").value,
+               "modifiedId"  : document.getElementById("modifiedId").value,
                "hits"  : document.getElementById("hits").value | 0,
                "seq"  : document.getElementById("seq").value  | 0
             }
@@ -84,19 +84,19 @@
         <tr>
             <th>작성자</th>
             <td>
-                <input type="text" name="ins_id" id="ins_id" th:value="evelyn"/>
+                <input type="text" name="createdId" id="createdId" th:value="evelyn"/>
             </td>
         </tr>
         <tr>
             <th>작성일</th>
             <td>
-                <input type="text" name="ins_date" id="ins_date" th:value="${board.ins_date}" />
+                <input type="text" name="createdDate" id="createdDate" th:value="${board.createdDate}" />
             </td>
         </tr>
         <tr>
             <th>수정자</th>
             <td>
-                <input type="text" name="mod_id" id="mod_id" th:value="evelyn"/>
+                <input type="text" name="modifiedId" id="modifiedId" th:value="evelyn"/>
             </td>
         </tr>
         </tbody>
@@ -107,7 +107,7 @@
 
     <div class="board_btn_div">
         <button class="board_reg_button" id="board_reg_button" type="button" th:onclick="'javascript:updateBoard(' + ${board.seq} + ')'" >수정</button>
-        <a class="board_list_link" href="/board_list">목록 이동</a>
+        <a class="board_list_link" href="/boardList">목록 이동</a>
     </div>
 </body>
 </html>

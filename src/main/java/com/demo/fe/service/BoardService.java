@@ -21,7 +21,7 @@ public class BoardService {
     // 게시물 작성
     public Mono<Board> insertBoard(Board board){
 
-        String uri = "http://localhost:8088/board/insert";
+        String uri = "http://localhost:8088/board";
         Mono<Board> boardMono = WebClient.create()
                 .post()
                 .uri(uri)
