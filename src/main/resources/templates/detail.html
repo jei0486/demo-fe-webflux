@@ -53,6 +53,10 @@
           location.href="/page/update/" + boardId
        }
 
+       function goList(){
+          location.href="/board_list"
+       }
+
     </script>
 
 
@@ -78,8 +82,9 @@
     </tr>
     </tbody>
   </table>
-  <button type="button" class="board_button" id="board_update_button"  th:onclick="'javascript:updateBoard(' + ${board.seq} + ')'" >수정</button>
+    <button type="button" class="board_button" id="board_update_button"  th:onclick="'javascript:updateBoard(' + ${board.seq} + ')'" >수정</button>
     <button type="button" class="board_button" id="board_delete_button"  th:onclick="'javascript:deleteBoard(' + ${board.seq} + ')'" > 삭제</button>
+    <button type="button" class="board_button"  th:onclick="'javascript:goList()'" >목록</button>
 </div>
 </body>
 </html>
