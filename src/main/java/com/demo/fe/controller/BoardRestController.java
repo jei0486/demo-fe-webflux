@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
@@ -16,8 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 public class BoardRestController {
-
-    private final WebClient webClient;
 
     private final BoardService boardService;
 
