@@ -12,7 +12,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Tag(name = "Board APIs", description = "Board APIs for demo purpose")
-@RequestMapping("/boards")
 @RequiredArgsConstructor
 @RestController
 public class BoardRestController {
@@ -20,33 +19,34 @@ public class BoardRestController {
     private final BoardService boardService;
 
     @Operation(summary = "게시물 작성", description = "1) 게시물 작성")
-    @PostMapping("")
+    @PostMapping("/board")
     private Mono<Board> insertBoard(@Valid Board board){
         return boardService.insertBoard(board);
     }
 
 
     @Operation(summary = "게시물 리스트", description = "2) 게시물 리스트")
-    @GetMapping("")
+    @GetMapping("/board")
     private Mono<List<Board>> getBoardList(){
         return  boardService.getBoardList();
     }
 
     @Operation(summary = "게시물 상세보기", description = "3) 게시물+ 상세보기")
-    @GetMapping("/{boardId}")
+    @GetMapping("/board/{boardId}")
     private  Mono<Board> getDetailBoard(@PathVariable Long boardId){
         return boardService.getDetailBoard(boardId);
     }
 
     @Operation(summary = "게시물 수정", description = "4) 게시물 수정")
-    @PutMapping("/{boardId}")
+    @PutMapping("/board/{boardId}")
     private Mono<Board> updateBoard(@PathVariable Long boardId,@Valid Board board){
         return boardService.updateBoard(boardId,board);
     }
 
     @Operation(summary = "게시물 삭제", description = "5) 게시물 삭제")
-    @DeleteMapping("/{boardId}")
+    @DeleteMapping("/board/{boardId}")
     private Mono<Void> deleteBoard(@PathVariable Long boardId){
+
         return boardService.deleteBoard(boardId);
     }
 

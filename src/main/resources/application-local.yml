@@ -1,18 +1,4 @@
-
-logging:
-  level:
-    org.springframework.web.reactive.function.client.ExchangeFunctions: DEBUG
-
-custom.api.url.demo-api: http://localhost:18088
-
-### actuator 관련 설정 (메트릭 엔드포인트)
-### localhost:9099/actuator/prometheus
-management:
-  endpoints:
-    web:
-      exposure:
-        include: metrics, prometheus
-
 server:
-  port: 19099
+  port: 9099
 
+custom.api.url.demo-api: http://localhost:8088
