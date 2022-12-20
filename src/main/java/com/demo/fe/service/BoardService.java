@@ -1,5 +1,6 @@
 package com.demo.fe.service;
 
+import com.demo.fe.config.WebClientConfig;
 import com.demo.fe.model.Board;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,21 +20,19 @@ import java.util.List;
 @Service
 public class BoardService {
 
-    @Value("${custom.api.url.demo-api}")
-    private String demoApiUrl;
+    private final WebClientConfig webclient;
 
     // 게시물 작성
     public Mono<Board> insertBoard(Board board){
-
-        Mono<Board> boardMono = WebClient.create()
+        WebClient client = this.webclient.getWebClient();
+        return client
                 .post()
-                .uri(demoApiUrl + "/board")
+                .uri("/boards")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(board)
                 .retrieve()
                 .bodyToMono(Board.class);
 
-        return boardMono;
     }
 
     // 게시물 리스트
@@ -43,85 +42,48 @@ public class BoardService {
         exchange 메서드는 retrieve 보다 세밀한 컨트롤이 가능한 대신 memory leak 을 주의 해야 한다.
         https://github.com/reactor/reactor-netty/issues/1401
          */
-        Mono<List<Board>> result = WebClient.create()
+        WebClient client = this.webclient.getWebClient();
+        return client
                 .get()
-                .uri(demoApiUrl + "/board")
+                .uri("/boards")
                 .exchange()
                 .flatMapMany(res -> res.bodyToFlux(Board.class))
-
-
                 .collectList();
-        return result;
     }
 
     // 게시물 상세보기
     public Mono<Board> getDetailBoard(Long boardId){
 
-        URI juri;
-        try {
-            juri = new URI(demoApiUrl);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-
-        Mono<Board> result = WebClient.create()
+        WebClient client = this.webclient.getWebClient();
+        return client
                 .get()
-                .uri(uriBuilder -> uriBuilder
-                        .scheme(juri.getScheme())
-                        .host(juri.getHost())
-                        .port(juri.getPort())
-                        .path("/board/{id}")
-                        .build(boardId))
+                .uri("/boards/" + boardId)
                 .retrieve()
                 .bodyToMono(Board.class);
 
-        return result;
     }
     
     // 게시물 수정
     public Mono<Board> updateBoard(Long boardId, Board board){
-        URI juri;
-        try {
-            juri = new URI(demoApiUrl);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-        Mono<Board> result = WebClient.create()
+        WebClient client = this.webclient.getWebClient();
+        return client
                 .put()
-                // .uri("/board/{boardId}", boardId)
-                .uri(uriBuilder -> uriBuilder
-                        .scheme(juri.getScheme())
-                        .host(juri.getHost())
-                        .port(juri.getPort())
-                        .path("/board/{id}")
-                        .build(boardId))
+                .uri("/boards/" + boardId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(board)
                 .retrieve()
                 .bodyToMono(Board.class);
-        return result;
     }
 
    // 게시물 삭제
     public Mono<Void> deleteBoard(Long boardId){
-        URI juri;
-        try {
-            juri = new URI(demoApiUrl);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-        return WebClient.create()
+        WebClient client = this.webclient.getWebClient();
+        return client
                 .delete()
-                .uri(uriBuilder -> uriBuilder
-                        .scheme(juri.getScheme())
-                        .host(juri.getHost())
-                        .port(juri.getPort())
-                        .path("/board/{id}")
-                        .build(boardId))
+                .uri("/boards/" + boardId)
                 .retrieve()
                 // delete() 함수 의 특성상 response는 Void.class 로 처리
                 .bodyToMono(Void.class);
-
     }
 
 
